@@ -22,27 +22,39 @@ func verificaAluno(alunos *int) {
 	}
 }
 
-func main() {
-	var numeroDeAlunos int
-	var nota float32
-	var soma float32
-
-	verificaAluno(&numeroDeAlunos)
-
-	for i := 1; i <= numeroDeAlunos; i++ {
+func armazenaNota(aluno int, notas float32, somas *float32) {
+	for i := 1; i <= aluno; i++ {
 		for {
 			fmt.Printf("Digite a nota do aluno %d: ", i)
-			fmt.Scan(&nota)
+			fmt.Scan(&notas)
 
-			if verificaNota(nota) {
+			if verificaNota(notas) {
 				break
 			} else {
 				fmt.Println("Nota inválida, tente novamente!")
 			}
 		}
-		soma += nota
+		*somas += notas
 	}
 
-	media := soma / float32(numeroDeAlunos)
-	fmt.Printf("A média da turma é: %.1f\n", media)
+}
+
+func Media(med float32, somas float32, alunos int) {
+	med = somas / float32(alunos)
+	fmt.Printf("A média da turma é: %.1f\n", med)
+
+}
+
+func main() {
+	var numeroDeAlunos int
+	var nota float32
+	var soma float32
+	var media float32
+
+	verificaAluno(&numeroDeAlunos)
+
+	armazenaNota(numeroDeAlunos, nota, &soma)
+
+	Media(media, soma, numeroDeAlunos)
+
 }
